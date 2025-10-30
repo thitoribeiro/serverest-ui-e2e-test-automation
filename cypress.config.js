@@ -1,6 +1,7 @@
 // cypress.config.js
 const { defineConfig } = require('cypress');
 const fs = require('fs');
+const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 require('dotenv').config(); // carrega .env na inicialização
 
 module.exports = defineConfig({
@@ -13,8 +14,15 @@ module.exports = defineConfig({
     video: true,
     screenshotOnRunFailure: true,
     defaultCommandTimeout: 8000,
+    env: {
+      allure: true,
+      allureReuseAfterSpec: true
+    },
 
     setupNodeEvents(on, config) {
+      // Configuração do Allure
+      allureWriter(on, config);
+
       // Prioriza o que já existir em config.env, senão lê do .env / process.env
       config.env = {
         ...config.env,

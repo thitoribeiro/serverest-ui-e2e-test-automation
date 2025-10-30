@@ -1,4 +1,5 @@
 const elements = require('./elements/cadastroElements');
+const loginElements = require('./elements/loginElements');
 const { buildUser } = require('./utils/userPayload');
 
 Cypress.Commands.add('visitCadastro', () => {
@@ -29,4 +30,18 @@ Cypress.Commands.add('assertToast', (text) => {
 
 Cypress.Commands.add('fecharToast', () => {
   cy.get(elements.toastClose).click({ force: true });
+});
+
+Cypress.Commands.add('loginUI', () => {
+  const email = Cypress.env('LOGIN_EMAIL');
+  const password = Cypress.env('LOGIN_PASSWORD');
+
+  expect(email, 'LOGIN_EMAIL deve estar definido em Cypress.env').to.be.a('string').and.not.be.empty;
+  expect(password, 'LOGIN_PASSWORD deve estar definido em Cypress.env').to.be.a('string').and.not.be.empty;
+
+  cy.visit('/login', { log: false });
+  cy.get(loginElements.inputEmail, { log: false }).type(email, { log: false });
+  cy.get(loginElements.inputPassword, { log: false }).type(password, { log: false });
+  cy.get(loginElements.submitButton, { log: false }).click({ log: false });
+  cy.url({ log: false }).should('match', /(\/admin\/home|\/home)/);
 });

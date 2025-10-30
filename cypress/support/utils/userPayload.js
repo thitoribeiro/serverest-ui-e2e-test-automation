@@ -1,20 +1,23 @@
 /**
- * Gera dados novos a cada execução.
- * Exemplo de e-mail: valid_user_1698690000000@uorak.com
+ * @file userPayload.js
+ * Gera dados de usuário únicos a cada execução.
+ * Clean Code: imutabilidade, sem dependências externas.
  */
-function seq() {
-  return Date.now().toString();
+
+function generateUniqueId() {
+  return `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 }
 
-function buildUser(overrides = {}) {
-  const s = seq();
-  const user = {
-    name: `Usuário Teste ${s}`,
-    email: `valid_user_${s}@uorak.com`,
+function buildUser({ admin = false } = {}) {
+  const uniqueId = generateUniqueId();
+  return {
+    name: `QA User ${uniqueId}`,
+    email: `qa_user_${uniqueId}@uorak.com`,
     password: 'Teste@123',
-    acceptTerms: true
+    admin: admin,
+    // Mantido para compatibilidade com spec público
+    acceptTerms: admin
   };
-  return { ...user, ...overrides };
 }
 
 module.exports = { buildUser };

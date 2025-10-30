@@ -144,6 +144,10 @@ cypress/videos/
 cypress/downloads/
 cypress/.cache/
 
+# Allure
+allure-results/
+allure-report/
+
 # OS files
 .DS_Store
 Thumbs.db

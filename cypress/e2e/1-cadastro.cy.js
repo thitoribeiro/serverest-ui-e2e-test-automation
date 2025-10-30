@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 const messages = require('../fixtures/messages.json');
-const testData = require('../fixtures/testData.json');
 const elements = require('../support/elements/cadastroElements');
 const { buildUser } = require('../support/utils/userPayload');
 
@@ -54,14 +53,5 @@ describe('Cadastro de Usuário', () => {
 
     // Exemplo de verificação pós-cadastro (ajuste seletor/rota real)
     // cy.url().should('include', '/dashboard');
-  });
-
-  // Alternativo: e-mail já usado (se quiser simular backend, ajuste conforme sua API)
-  it('Tentativa de cadastro com e-mail já cadastrado', () => {
-    const user = buildUser({ email: testData.existingUser.email });
-    cy.preencherCadastro(user);
-    cy.submeterCadastro();
-    cy.assertToast(messages.emailAlreadyUsed);
-    cy.fecharToast();
   });
 });

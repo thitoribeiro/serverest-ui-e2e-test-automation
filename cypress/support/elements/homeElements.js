@@ -19,6 +19,7 @@ const SELECTORS = Object.freeze({
   leadText: '.jumbotron .lead',
 
   // Cards
+  cardCadastrarUsuariosBtn: '[data-testid="cadastrarUsuarios"]',
   cardCadUsuariosBtn: '[data-testid="cadastrarUsuarios"]',
   cardListUsuariosBtn: '[data-testid="listarUsuarios"]',
   cardCadProdutosBtn: '[data-testid="cadastrarProdutos"]',
