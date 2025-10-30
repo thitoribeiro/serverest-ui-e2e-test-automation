@@ -1,5 +1,7 @@
+// cypress.config.js
 const { defineConfig } = require('cypress');
 const fs = require('fs');
+require('dotenv').config(); // carrega .env na inicialização
 
 module.exports = defineConfig({
   e2e: {
@@ -11,20 +13,33 @@ module.exports = defineConfig({
     video: true,
     screenshotOnRunFailure: true,
     defaultCommandTimeout: 8000,
+
     setupNodeEvents(on, config) {
-      // Remove vídeos apenas de specs que passaram (mantém apenas falhas)
+      // Prioriza o que já existir em config.env, senão lê do .env / process.env
+      config.env = {
+        ...config.env,
+        LOGIN_EMAIL:    config.env.LOGIN_EMAIL    || process.env.CYPRESS_LOGIN_EMAIL || '',
+        LOGIN_PASSWORD: config.env.LOGIN_PASSWORD || process.env.CYPRESS_LOGIN_PASSWORD || '',
+        LOGIN_NAME:     config.env.LOGIN_NAME     || process.env.CYPRESS_LOGIN_NAME || ''
+      };
+
+      const missing = [];
+      if (!config.env.LOGIN_EMAIL)    missing.push('CYPRESS_LOGIN_EMAIL');
+      if (!config.env.LOGIN_PASSWORD) missing.push('CYPRESS_LOGIN_PASSWORD');
+      if (missing.length) {
+        console.warn(`[cypress.config] Atenção: defina no .env -> ${missing.join(', ')}`);
+      }
+
       on('after:spec', (spec, results) => {
-        if (results && results.stats.failures === 0 && results.video) {
-          // Remove o vídeo se todos os testes passaram
+        if (results && results.stats && results.stats.failures === 0 && results.video) {
           try {
-            if (fs.existsSync(results.video)) {
-              fs.unlinkSync(results.video);
-            }
-          } catch (error) {
-            // Ignora erros ao deletar vídeos
+            if (fs.existsSync(results.video)) fs.unlinkSync(results.video);
+          } catch (_) {
           }
         }
       });
+
+      return config;
     }
   }
 });

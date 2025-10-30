@@ -5,8 +5,32 @@
   "main": "index.js",
   "scripts": {
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "test": "cypress run"
+    "cy:open:cadastro": "cypress open --config specPattern='cypress/e2e/cadastro.cy.js'",
+    "cy:open:login": "cypress open --config specPattern='cypress/e2e/login.cy.js'",
+    "test": "cypress run",
+    "test:headed": "cypress run --headed",
+    "test:cadastro:headed": "cypress run --headed --spec 'cypress/e2e/cadastro.cy.js'",
+    "test:login:headed": "cypress run --headed --spec 'cypress/e2e/login.cy.js'",
+    "test:cadastro:chrome:headed": "cypress run --headed --browser chrome --spec 'cypress/e2e/cadastro.cy.js'",
+    "test:cadastro:firefox:headed": "cypress run --headed --browser firefox --spec 'cypress/e2e/cadastro.cy.js'",
+    "test:login:chrome:headed": "cypress run --headed --browser chrome --spec 'cypress/e2e/login.cy.js'",
+    "test:login:firefox:headed": "cypress run --headed --browser firefox --spec 'cypress/e2e/login.cy.js'",
+    "test:all": "cypress run",
+    "test:cadastro": "cypress run --spec 'cypress/e2e/cadastro.cy.js'",
+    "test:login": "cypress run --spec 'cypress/e2e/login.cy.js'",
+    "test:chrome": "cypress run --browser chrome",
+    "test:chrome:headed": "cypress run --headed --browser chrome",
+    "test:firefox": "cypress run --browser firefox",
+    "test:electron": "cypress run --browser electron",
+    "test:cadastro:chrome": "cypress run --browser chrome --spec 'cypress/e2e/cadastro.cy.js'",
+    "test:cadastro:firefox": "cypress run --browser firefox --spec 'cypress/e2e/cadastro.cy.js'",
+    "test:cadastro:electron": "cypress run --browser electron --spec 'cypress/e2e/cadastro.cy.js'",
+    "test:login:chrome": "cypress run --browser chrome --spec 'cypress/e2e/login.cy.js'",
+    "test:login:firefox": "cypress run --browser firefox --spec 'cypress/e2e/login.cy.js'",
+    "test:login:electron": "cypress run --browser electron --spec 'cypress/e2e/login.cy.js'",
+    "test:all:browsers": "npm run test:chrome && npm run test:firefox && npm run test:electron",
+    "test:cadastro:all:browsers": "npm run test:cadastro:chrome && npm run test:cadastro:firefox && npm run test:cadastro:electron",
+    "test:login:all:browsers": "npm run test:login:chrome && npm run test:login:firefox && npm run test:login:electron"
   },
   "keywords": [
     "cypress",
@@ -16,7 +40,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.7.0"
+    "cypress": "^13.7.0",
+    "dotenv": "^17.2.3"
   },
   "repository": {
     "type": "git",

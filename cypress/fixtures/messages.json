@@ -4,5 +4,13 @@
   "requiredName": "Nome é obrigatório",
   "requiredEmail": "Email é obrigatório",
   "requiredPassword": "Password é obrigatório",
-  "invalidEmail": "E-mail inválido"
+  "invalidEmail": "E-mail inválido",
+  "loginSuccess": "Login realizado com sucesso",
+  "invalidCredentials": "Incorrect email or password",
+  "emailRequired": "Email é obrigatório",
+  "passwordRequired": "Password é obrigatório",
+  "emailBlank": "Email não pode ficar em branco",
+  "passwordBlank": "Password não pode ficar em branco",
+  "invalidEmailFormat": "Por favor, inclua um '@' no endereço de email.",
+  "logoutSuccess": "Logout realizado com sucesso"
 }
