@@ -110,7 +110,8 @@ serverest-ui-e2e-test-automation/
 │   │   │   └── index.js            # Imports globais
 │   │   ├── commands.js             # Comandos customizados ⭐
 │   │   ├── elements/               # Element Mapping (mapeamento de elementos)
-│   │   │   ├── cadastroElements.js
+│   │   │   ├── cadastroPublicoElements.js  # Elementos do cadastro público
+│   │   │   ├── cadastroAuthElements.js     # Elementos do cadastro autenticado
 │   │   │   ├── loginElements.js
 │   │   │   ├── homeElements.js
 │   │   │   └── listUsersElements.js
@@ -163,7 +164,7 @@ Adotamos uma abordagem híbrida que combina:
 **Element Mapping**: Mapeamento centralizado de seletores em arquivos separados:
 
 ```javascript
-// cypress/support/elements/cadastroElements.js
+// cypress/support/elements/cadastroPublicoElements.js
 const TEST_IDS = Object.freeze({
   name: 'nome',
   email: 'email',
@@ -172,8 +173,8 @@ const TEST_IDS = Object.freeze({
 });
 
 const SELECTORS = Object.freeze({
-  nome: `[data-testid="${TEST_IDS.name}"], #nome`,
-  email: `[data-testid="${TEST_IDS.email}"], #email`,
+  inputName: `[data-testid="${TEST_IDS.name}"], #nome`,
+  inputEmail: `[data-testid="${TEST_IDS.email}"], #email`,
   // ...
 });
 
@@ -538,7 +539,7 @@ npm run allure:serve
 ```javascript
 // 1. Imports
 const messages = require('../fixtures/messages.json');
-const elements = require('../support/elements/cadastroElements');
+const elements = require('../support/elements/cadastroPublicoElements');
 const { buildUser } = require('../support/utils/userPayload');
 
 // 2. Setup do describe

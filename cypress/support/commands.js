@@ -1,4 +1,4 @@
-const elements = require('./elements/cadastroElements');
+const cadastroPublicoElements = require('./elements/cadastroPublicoElements');
 const loginElements = require('./elements/loginElements');
 const { buildUser } = require('./utils/userPayload');
 
@@ -7,11 +7,11 @@ Cypress.Commands.add('visitCadastro', () => {
 });
 
 Cypress.Commands.add('preencherCadastro', (user = buildUser()) => {
-  cy.get(elements.inputName).clear().type(user.name);
-  cy.get(elements.inputEmail).clear().type(user.email);
-  cy.get(elements.inputPassword).clear().type(user.password);
+  cy.get(cadastroPublicoElements.inputName).clear().type(user.name);
+  cy.get(cadastroPublicoElements.inputEmail).clear().type(user.email);
+  cy.get(cadastroPublicoElements.inputPassword).clear().type(user.password);
   if (user.acceptTerms !== undefined) {
-    cy.get(elements.adminCheckbox).then($el => {
+    cy.get(cadastroPublicoElements.adminCheckbox).then($el => {
       const checked = $el.is(':checked');
       if (user.acceptTerms && !checked) cy.wrap($el).click();
       if (!user.acceptTerms && checked) cy.wrap($el).click();
@@ -21,15 +21,15 @@ Cypress.Commands.add('preencherCadastro', (user = buildUser()) => {
 });
 
 Cypress.Commands.add('submeterCadastro', () => {
-  cy.get(elements.submitButton).click();
+  cy.get(cadastroPublicoElements.submitButton).click();
 });
 
 Cypress.Commands.add('assertToast', (text) => {
-  cy.get(elements.toastMessage, { timeout: 10000 }).should('be.visible').and('contain.text', text);
+  cy.get(cadastroPublicoElements.toastMessage, { timeout: 10000 }).should('be.visible').and('contain.text', text);
 });
 
 Cypress.Commands.add('fecharToast', () => {
-  cy.get(elements.toastClose).click({ force: true });
+  cy.get(cadastroPublicoElements.toastClose).click({ force: true });
 });
 
 Cypress.Commands.add('loginUI', () => {

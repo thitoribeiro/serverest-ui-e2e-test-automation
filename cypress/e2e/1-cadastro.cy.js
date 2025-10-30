@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 
 const messages = require('../fixtures/messages.json');
-const elements = require('../support/elements/cadastroElements');
+const testData = require('../fixtures/testData.json');
+const elements = require('../support/elements/cadastroPublicoElements');
 const { buildUser } = require('../support/utils/userPayload');
 
 describe('Cadastro de Usuário', () => {
@@ -39,6 +40,19 @@ describe('Cadastro de Usuário', () => {
     cy.contains(messages.requiredName).should('exist');
     cy.contains(messages.requiredEmail).should('exist');
     cy.contains(messages.requiredPassword).should('exist');
+  });
+
+  it('Tentativa de cadastro com e-mail já cadastrado', () => {
+    cy.get(elements.inputName).type('Usuário Teste');
+    cy.get(elements.inputEmail).type(testData.existingUser.email);
+    cy.get(elements.inputPassword).type('Teste@123');
+    cy.get(elements.adminCheckbox).click();
+    cy.get(elements.submitButton).click();
+
+    // Validar mensagem de email já usado
+    cy.get(elements.alertMessage).should('be.visible');
+    cy.contains(messages.emailAlreadyUsed).should('exist');
+    cy.url().should('include', '/cadastrarusuarios');
   });
 
   // Positivo (dados sempre novos)
